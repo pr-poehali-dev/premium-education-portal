@@ -4,33 +4,36 @@
 
 @layer base {
   :root {
-    --background: 40 30% 98%;
-    --foreground: 25 18% 12%;
+    --background: 240 24% 4%;
+    --foreground: 220 20% 96%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 25 18% 12%;
+    --card: 240 20% 7%;
+    --card-foreground: 220 20% 96%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 25 18% 12%;
+    --popover: 240 24% 5%;
+    --popover-foreground: 220 20% 96%;
 
-    --primary: 25 22% 14%;
-    --primary-foreground: 40 30% 98%;
+    --primary: 220 20% 96%;
+    --primary-foreground: 240 24% 4%;
 
-    --secondary: 36 22% 94%;
-    --secondary-foreground: 25 22% 14%;
+    --secondary: 240 16% 12%;
+    --secondary-foreground: 220 20% 96%;
 
-    --muted: 36 18% 95%;
-    --muted-foreground: 28 8% 46%;
+    --muted: 240 14% 14%;
+    --muted-foreground: 240 8% 60%;
 
-    --accent: 24 85% 55%;
-    --accent-foreground: 40 30% 98%;
+    --accent: 265 90% 65%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --neon: 190 95% 55%;
+    --neon-2: 280 95% 68%;
 
-    --border: 34 18% 89%;
-    --input: 34 18% 89%;
-    --ring: 25 22% 14%;
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 14% 16%;
+    --input: 240 14% 16%;
+    --ring: 265 90% 65%;
 
     --radius: 1rem;
 
@@ -108,40 +111,105 @@
 
 @layer utilities {
   .glass {
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-strong {
+    background: rgba(18, 18, 28, 0.7);
+    backdrop-filter: blur(28px) saturate(160%);
+    -webkit-backdrop-filter: blur(28px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   .text-balance {
     text-wrap: balance;
   }
 
-  .grain {
+  .text-gradient {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--neon)) 0%,
+      hsl(var(--neon-2)) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .neon-border {
     position: relative;
   }
-  .grain::after {
+  .neon-border::before {
     content: "";
     position: absolute;
     inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      hsl(var(--neon) / 0.6),
+      transparent 40%,
+      hsl(var(--neon-2) / 0.6)
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
     pointer-events: none;
-    opacity: 0.025;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .glow {
+    box-shadow:
+      0 0 0 1px hsl(var(--accent) / 0.2),
+      0 0 40px -8px hsl(var(--accent) / 0.5);
   }
 
   .hover-lift {
     transition:
       transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-      box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 0.5s ease;
   }
   .hover-lift:hover {
     transform: translateY(-6px);
-    box-shadow: 0 30px 60px -20px rgba(40, 30, 20, 0.18);
+    box-shadow: 0 30px 70px -25px hsl(var(--accent) / 0.4);
   }
 
   .reveal {
     opacity: 0;
     animation: fade-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+::selection {
+  background: hsl(var(--accent) / 0.4);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--accent) / 0.6);
 }

@@ -20,8 +20,7 @@ export default {
 		extend: {
 			fontFamily: {
 				sans: ['Manrope', 'sans-serif'],
-				serif: ['Cormorant', 'serif'],
-				zh: ['"Noto Serif SC"', 'serif'],
+				zh: ['"Noto Sans SC"', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -97,6 +96,18 @@ export default {
 				'float': {
 					'0%, 100%': { transform: 'translateY(0)' },
 					'50%': { transform: 'translateY(-12px)' }
+				},
+				'glow-pulse': {
+					'0%, 100%': { opacity: '0.4' },
+					'50%': { opacity: '1' }
+				},
+				'shimmer': {
+					'0%': { backgroundPosition: '-200% 0' },
+					'100%': { backgroundPosition: '200% 0' }
+				},
+				'grid-flow': {
+					'0%': { transform: 'translateY(0)' },
+					'100%': { transform: 'translateY(40px)' }
 				}
 			},
 			animation: {
@@ -105,7 +116,10 @@ export default {
 				'fade-up': 'fade-up 0.8s cubic-bezier(0.16,1,0.3,1) forwards',
 				'fade-in': 'fade-in 1s ease-out forwards',
 				'scale-in': 'scale-in 0.7s cubic-bezier(0.16,1,0.3,1) forwards',
-				'float': 'float 6s ease-in-out infinite'
+				'float': 'float 6s ease-in-out infinite',
+				'glow-pulse': 'glow-pulse 4s ease-in-out infinite',
+				'shimmer': 'shimmer 3s linear infinite',
+				'grid-flow': 'grid-flow 4s linear infinite'
 			}
 		}
 	},
